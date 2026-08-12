@@ -60,23 +60,50 @@ The classification model is based on:
 
 A custom class-weighted training strategy is used to reduce the effect of class imbalance between Reuters authors and the larger Human/ChatGPT groups.
 
-## Results
+## Key Results
 
-| Metric | Result |
+The final DistilBERT model was evaluated on a held-out test set
+across the 52-class authorship classification setting.
+
+| Metric | Validation | Test |
+|---|---:|---:|
+| Accuracy | 76.38% | **74.67%** |
+| Macro F1 | 0.7155 | **0.6740** |
+| Weighted F1 | 0.7496 | **0.7360** |
+| Loss | 1.2013 | **1.2541** |
+
+The relatively small gap between validation and test performance suggests
+that the final evaluation is consistent with the behavior observed during
+model development.
+
+Macro F1 is reported alongside accuracy because the task contains many
+author classes and overall accuracy alone may obscure differences in
+per-class performance.
+
+## Human vs. ChatGPT Confidence Analysis
+
+To further examine model behavior for the Human and ChatGPT classes,
+the predicted probability assigned to the correct class was extracted
+for samples belonging to each group.
+
+| Group | Mean Confidence |
 |---|---:|
-| Test Accuracy | 70.85% |
-| Macro F1 | 0.68 |
-| Number of Classes | 52 |
+| ChatGPT | **62.32%** |
+| Human | **52.73%** |
 
-The model showed substantial overlap between Human and ChatGPT writing while still identifying statistically significant differences in model confidence.
+A Welch independent-samples t-test was used to compare the two
+confidence distributions:
 
-## Statistical Analysis
+- **t-statistic:** 5.0013
+- **p-value:** 0.00000215
 
-An independent-samples t-test was applied to the model confidence scores for Human and ChatGPT samples.
+The difference in mean model confidence was statistically significant
+at α = 0.05.
 
-- ChatGPT mean confidence: **65.61%**
-- Human mean confidence: **59.22%**
-- p-value: **0.00607**
+This result indicates that the model's confidence behavior differs
+between Human and ChatGPT samples. It should not, however, be interpreted
+as evidence that a specific stylometric characteristic causes this
+difference.
 
 ## Technologies
 
