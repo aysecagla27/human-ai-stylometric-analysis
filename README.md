@@ -5,7 +5,7 @@ A stylometric and transformer-based analysis of human authorship and ChatGPT-gen
 ## Overview
 
 This project investigates whether human authors and ChatGPT exhibit distinguishable linguistic patterns.
-The study combines traditional stylometric features with a fine-tuned DistilBERT classifier to analyze:
+The study analyzes traditional stylometric features alongside a fine-tuned DistilBERT classifier to analyze:
 
 - 50 individual Reuters journalists
 - Generic human-written responses from HC3
